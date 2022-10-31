@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>landing page</title>
+</head>
+<body>
+
+<form method="get" th:action="@{'/weatherforecast' + '?city=' + *{city} + '&days=' + *{days}}"
+      th:object="${weatherForecastForm}">
+    <input type="text" id="city" placeholder="city" required th:field="*{city}">
+    <input type="text" id="days" placeholder="days" required th:field="*{days}">
+    <input type="submit" value="Senden"/>
+    <div th:if="${error}"><h4 style="color: red" th:text="${error}"></h4></div>
+</form>
+
+<div th:if="${weatherForecastDescriptions}">
+    <table>
+        <tbody>
+        <tr th:each="weatherForecastDescription: ${weatherForecastDescriptions.weatherForecastDescriptions}">
+            <td th:text="${weatherForecastDescription.date}"></td>
+            <td th:text="${weatherForecastDescription.description}"></td>
+            <td th:text="${weatherForecastDescription.temperature}"></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>
